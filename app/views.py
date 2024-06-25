@@ -1,14 +1,14 @@
-from rest_framework import viewsets
-from app.models import User
-from app.serializers import UserSerializer
+# from rest_framework import viewsets
+# from app.models import User
+# from app.serializers import UserSerializer
 from rest_framework.views import APIView
 from rest_framework import status
 from rest_framework.response import Response
 
 
-class UserViewSet(viewsets.ModelViewSet):
-    queryset = User.objects.all()
-    serializer_class = UserSerializer
+# class UserViewSet(viewsets.ModelViewSet):
+#     queryset = User.objects.all()
+#     serializer_class = UserSerializer
 
 
 class CustomView(APIView):
@@ -18,7 +18,7 @@ class CustomView(APIView):
 
     def post(self, request, format=None):
         data = {'message': 'Hello, World!'}
-        return Response(data,status=status.HTTP_200_OK)
+        return Response(data, status=status.HTTP_200_OK)
     # def post(self, request, format=None):
     #     """
     #     A simple POST example view.
