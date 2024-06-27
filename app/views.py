@@ -10,14 +10,23 @@ from rest_framework.response import Response
 #     queryset = User.objects.all()
 #     serializer_class = UserSerializer
 
-
-class CustomView(APIView):
+class TestView(APIView):
     def get(self, request, format=None):
-        data = {'message': 'Hello, World!'}
+        data = {'message': 'ok!', 'code': 200, 'data': 'test'}
         return Response(data)
 
     def post(self, request, format=None):
-        data = {'message': 'Hello, World!'}
+        data = {'message': 'ok!', 'code': 200, 'data': 'test'}
+        return Response(data, status=status.HTTP_200_OK)
+
+
+class CustomView(APIView):
+    def get(self, request, format=None):
+        data = {'message': 'ok!', 'code': 200, 'data': 'test'}
+        return Response(data)
+
+    def post(self, request, format=None):
+        data = {'message': 'Hello, World!', 'code': 200, 'data': 'custom'}
         return Response(data, status=status.HTTP_200_OK)
     # def post(self, request, format=None):
     #     """
