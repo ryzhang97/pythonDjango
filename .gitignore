@@ -1,2 +1,5 @@
 /.idea/
 /.env
+app/__pycache__/
+pythonDjango/__pycache__/
+wx/__pycache__/
