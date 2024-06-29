@@ -4,6 +4,7 @@
 from rest_framework.views import APIView
 from rest_framework import status
 from rest_framework.response import Response
+from app.models import User
 
 
 # class UserViewSet(viewsets.ModelViewSet):
@@ -26,14 +27,18 @@ class CustomView(APIView):
         return Response(data)
 
     def post(self, request, format=None):
-        data = {'message': 'Hello, World!', 'code': 200, 'data': 'custom'}
+        data = {'message': 'Hello, World!', 'code': 200, 'data': []}
+        all_objects = User.objects.all()
+        for obj in all_objects:
+            data['data'].append(obj.openid)
+            print(obj.openid)
         return Response(data, status=status.HTTP_200_OK)
-    # def post(self, request, format=None):
-    #     """
-    #     A simple POST example view.
-    #     """
-    #     serializer = MySerializer(data=request.data)
-    #     if serializer.is_valid():
-    #         # 处理数据，比如保存到数据库等
-    #         return Response(serializer.data, status=status.HTTP_201_CREATED)
-    #     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+# def post(self, request, format=None):
+#     """
+#     A simple POST example view.
+#     """
+#     serializer = MySerializer(data=request.data)
+#     if serializer.is_valid():
+#         # 处理数据，比如保存到数据库等
+#         return Response(serializer.data, status=status.HTTP_201_CREATED)
+#     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)

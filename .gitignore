@@ -3,3 +3,5 @@
 app/__pycache__/
 pythonDjango/__pycache__/
 wx/__pycache__/
+app/migrations/
+utils/__pycache__/

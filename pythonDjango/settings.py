@@ -11,6 +11,13 @@ https://docs.djangoproject.com/en/5.0/ref/settings/
 """
 
 from pathlib import Path
+from decouple import config
+
+DB_USER = config('DB_USER')
+DB_PASSWORD = config('DB_PASSWORD')
+DB_NAME = config('DB_NAME')
+DB_HOST = config('DB_HOST')
+DB_PORT = config('DB_PORT')
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -25,7 +32,7 @@ SECRET_KEY = 'django-insecure-s+#g7%!#bmu7qt2_&wrojgln0x^6xgi+q%%w$i!4&1t7gr&1(_
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['192.168.137.1']
 
 
 # Application definition
@@ -78,8 +85,12 @@ WSGI_APPLICATION = 'pythonDjango.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': DB_NAME,  # 数据库名
+        'USER': DB_USER,  # 数据库用户名
+        'PASSWORD': DB_PASSWORD,  # 数据库密码
+        'HOST': DB_HOST,  # 数据库主机地址
+        'PORT': DB_PORT,  # 数据库端口（MySQL默认是3306）
     }
 }
 
