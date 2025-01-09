@@ -5,11 +5,19 @@ from rest_framework.views import APIView
 from rest_framework import status
 from rest_framework.response import Response
 from app.models import User
+import time
 
 
-# class UserViewSet(viewsets.ModelViewSet):
-#     queryset = User.objects.all()
-#     serializer_class = UserSerializer
+# respond公共结构
+def getData(data):
+    return {'message': 'ok!', 'code': 200, 'data': data}
+
+
+class LoginView(APIView):
+    def post(self, request, format=None):
+        data = {'token': int(time.time())}
+        return Response(getData(data), status=status.HTTP_200_OK)
+
 
 class TestView(APIView):
     def get(self, request, format=None):
@@ -33,12 +41,3 @@ class CustomView(APIView):
             data['data'].append(obj.openid)
             print(obj.openid)
         return Response(data, status=status.HTTP_200_OK)
-# def post(self, request, format=None):
-#     """
-#     A simple POST example view.
-#     """
-#     serializer = MySerializer(data=request.data)
-#     if serializer.is_valid():
-#         # 处理数据，比如保存到数据库等
-#         return Response(serializer.data, status=status.HTTP_201_CREATED)
-#     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
