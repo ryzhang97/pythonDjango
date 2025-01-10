@@ -9,31 +9,23 @@ https://docs.djangoproject.com/en/5.0/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.0/ref/settings/
 """
-
+from datetime import timedelta
 from pathlib import Path
 from decouple import config
 
-DB_USER = config('DB_USER')
-DB_PASSWORD = config('DB_PASSWORD')
-DB_NAME = config('DB_NAME')
-DB_HOST = config('DB_HOST')
-DB_PORT = config('DB_PORT')
-
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
-
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-s+#g7%!#bmu7qt2_&wrojgln0x^6xgi+q%%w$i!4&1t7gr&1(_'
+SECRET_KEY = config('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
 ALLOWED_HOSTS = ['localhost']
-
 
 # Application definition
 
@@ -63,8 +55,7 @@ ROOT_URLCONF = 'pythonDjango.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [BASE_DIR / 'templates']
-        ,
+        'DIRS': [BASE_DIR / 'templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -79,21 +70,19 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'pythonDjango.wsgi.application'
 
-
 # Database
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
 
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': DB_NAME,  # 数据库名
-        'USER': DB_USER,  # 数据库用户名
-        'PASSWORD': DB_PASSWORD,  # 数据库密码
-        'HOST': DB_HOST,  # 数据库主机地址
-        'PORT': DB_PORT,  # 数据库端口（MySQL默认是3306）
+        'NAME': config('DB_NAME'),  # 数据库名
+        'USER': config('DB_USER'),  # 数据库用户名
+        'PASSWORD': config('DB_PASSWORD'),  # 数据库密码
+        'HOST': config('DB_HOST'),  # 数据库主机地址
+        'PORT': config('DB_PORT'),  # 数据库端口（MySQL默认是3306）
     }
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/5.0/ref/settings/#auth-password-validators
@@ -113,7 +102,6 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-
 # Internationalization
 # https://docs.djangoproject.com/en/5.0/topics/i18n/
 
@@ -125,7 +113,6 @@ USE_I18N = True
 
 USE_TZ = True
 
-
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.0/howto/static-files/
 
@@ -135,3 +122,16 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+AUTHENTICATION_BACKENDS = [
+    'app.backends.UserBackend',
+    # 'django.contrib.auth.backends.ModelBackend'
+]
+AUTH_USER_MODEL = 'app.User'
+
+JWT_AUTH = {
+    'JWT_SECRET_KEY': 'your_secret_key',
+    'JWT_ALGORITHM': 'HS256',
+    'JWT_ALLOW_REFRESH': True,
+    'JWT_EXPIRATION_DELTA': timedelta(days=1),
+}

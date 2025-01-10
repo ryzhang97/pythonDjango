@@ -13,8 +13,9 @@ def _get(url):
         return None
 
 
-def _res(res):
-    if res is None:
+def _res(data):
+    if data is None:
         return {'message': 'err!', 'code': 0, 'data': None}
     else:
-        return {'message': 'ok!', 'code': 200, 'data': res}
+        return {'message': 'ok!', 'code': 200, 'data': data}
+

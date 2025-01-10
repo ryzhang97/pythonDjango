@@ -4,19 +4,14 @@
 from rest_framework.views import APIView
 from rest_framework import status
 from rest_framework.response import Response
+from django.contrib.auth import authenticate, login
 from app.models import User
 import time
 
 
 # respond公共结构
-def getData(data):
+def getdata(data):
     return {'message': 'ok!', 'code': 200, 'data': data}
-
-
-class LoginView(APIView):
-    def post(self, request, format=None):
-        data = {'token': int(time.time())}
-        return Response(getData(data), status=status.HTTP_200_OK)
 
 
 class TestView(APIView):
