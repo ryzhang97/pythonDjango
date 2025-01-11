@@ -1,5 +1,5 @@
 -- 创建数据库
--- CREATE DATABASE db_app CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+# CREATE DATABASE db_app CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
 # -- -- 创建user表
 create table db_app.tb_user

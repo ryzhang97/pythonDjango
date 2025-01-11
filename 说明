@@ -1,0 +1,14 @@
+一、分包
+1、在项目根目录下分别建一个app、wx文件夹
+2、在app和wx目录下建一个__init__.py，把这两个文件夹声明成python包
+3、在app和wx包下可以分别创建对应的views、urls、models与serializers
+4、在pythonDjango的urls中把app和wx中的urls引入
+    urlpatterns = [
+        path('api/', include('app.urls')),
+        path('wx/', include('wx.urls')),
+    ]
+二、依赖管理
+1、生成所有依赖requirements.txt
+pip freeze > requirements.txt
+2、安装依赖
+pip install -r requirements.txt

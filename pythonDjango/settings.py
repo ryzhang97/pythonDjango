@@ -37,6 +37,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'rest_framework',
+    'rest_framework_simplejwt',
     'app',
 ]
 
@@ -124,14 +125,45 @@ STATIC_URL = 'static/'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 AUTHENTICATION_BACKENDS = [
-    'app.backends.UserBackend',
+    'pythonDjango.backends.UserBackend',
     # 'django.contrib.auth.backends.ModelBackend'
 ]
 AUTH_USER_MODEL = 'app.User'
 
-JWT_AUTH = {
-    'JWT_SECRET_KEY': 'your_secret_key',
-    'JWT_ALGORITHM': 'HS256',
-    'JWT_ALLOW_REFRESH': True,
-    'JWT_EXPIRATION_DELTA': timedelta(days=1),
+IMPLE_JWT = {
+    'ACCESS_TOKEN_LIFETIME': timedelta(minutes=60),  # 访问令牌的有效期，默认为5分钟
+    'REFRESH_TOKEN_LIFETIME': timedelta(days=1),  # 刷新令牌的有效期，默认为1天
+    'ROTATE_REFRESH_TOKENS': False,  # 当使用刷新令牌时是否创建新的刷新令牌，默认是False
+    'BLACKLIST_AFTER_ROTATION': True,  # 在旋转刷新令牌后是否将旧的刷新令牌加入黑名单，默认是True
+    'UPDATE_LAST_LOGIN': False,  # 是否更新用户的最后登录时间，默认是False
+
+    'ALGORITHM': 'HS256',  # 签名算法，默认是HMAC SHA 256
+    'SIGNING_KEY': SECRET_KEY,  # 签名密钥，默认是Django的SECRET_KEY
+    'VERIFYING_KEY': None,  # 验证密钥，默认是None（使用签名密钥）
+    'AUDIENCE': None,  # 受众，默认是None
+    'ISSUER': None,  # 发行者，默认是None
+
+    'AUTH_HEADER_TYPES': ('Bearer',),  # 可以是 ('Bearer',)，或者你也可以自定义如 ('JWT',)
+    'AUTH_HEADER_NAME': 'HTTP_AUTHORIZATION',  # HTTP头名称，默认是'HTTP_AUTHORIZATION'
+    'USER_ID_FIELD': 'id',  # 用户模型中用作唯一标识符的字段，默认是'id'
+    'USER_ID_CLAIM': 'user_id',  # JWT中用户ID对应的声明，默认是'user_id'
+
+    'AUTH_TOKEN_CLASSES': ('rest_framework_simplejwt.tokens.AccessToken',),  # 授权令牌类，默认是AccessToken
+    'TOKEN_TYPE_CLAIM': 'token_type',  # JWT中存储令牌类型的声明，默认是'token_type'
+
+    'JTI_CLAIM': 'jti',
+
+    'SLIDING_TOKEN_REFRESH_EXP_CLAIM': 'refresh_exp',
+    'SLIDING_TOKEN_LIFETIME': timedelta(minutes=60),
+    'SLIDING_TOKEN_REFRESH_LIFETIME': timedelta(days=1),
+}
+
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'pythonDjango.authentication.CustomJWTAuthentication',
+        'rest_framework.authentication.SessionAuthentication',
+    ),
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.IsAuthenticated',
+    ],
 }
