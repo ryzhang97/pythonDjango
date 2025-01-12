@@ -12,3 +12,8 @@
 pip freeze > requirements.txt
 2、安装依赖
 pip install -r requirements.txt
+
+三、修饰器说明
+1、@csrf_exempt
+跳过跨站请求伪造（CSRF）保护
+

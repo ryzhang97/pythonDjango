@@ -14,7 +14,4 @@ def _get(url):
 
 
 def _res(data, msg='ok', code=200):
-    if data is None:
-        return {'message': msg, 'code': code, 'data': None}
-    else:
-        return {'message': msg, 'code': code, 'data': data}
+    return {'message': msg, 'code': code, 'data': data}

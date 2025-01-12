@@ -5,5 +5,4 @@ from app.models import User
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
-        fields = ['openid', 'name', 'username', 'last_login']
-
+        fields = ['userid', 'username', 'email', 'mobile', 'last_login']

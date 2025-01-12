@@ -25,7 +25,7 @@ SECRET_KEY = config('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['localhost']
+ALLOWED_HOSTS = ['192.168.0.106']
 
 # Application definition
 
@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'rest_framework_simplejwt',
     'app',
+    'wx',
 ]
 
 MIDDLEWARE = [
@@ -126,11 +127,11 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 AUTHENTICATION_BACKENDS = [
     'pythonDjango.backends.UserBackend',
-    # 'django.contrib.auth.backends.ModelBackend'
+    'django.contrib.auth.backends.ModelBackend'
 ]
 AUTH_USER_MODEL = 'app.User'
 
-IMPLE_JWT = {
+SIMPLE_JWT = {
     'ACCESS_TOKEN_LIFETIME': timedelta(minutes=60),  # 访问令牌的有效期，默认为5分钟
     'REFRESH_TOKEN_LIFETIME': timedelta(days=1),  # 刷新令牌的有效期，默认为1天
     'ROTATE_REFRESH_TOKENS': False,  # 当使用刷新令牌时是否创建新的刷新令牌，默认是False
@@ -145,7 +146,7 @@ IMPLE_JWT = {
 
     'AUTH_HEADER_TYPES': ('Bearer',),  # 可以是 ('Bearer',)，或者你也可以自定义如 ('JWT',)
     'AUTH_HEADER_NAME': 'HTTP_AUTHORIZATION',  # HTTP头名称，默认是'HTTP_AUTHORIZATION'
-    'USER_ID_FIELD': 'id',  # 用户模型中用作唯一标识符的字段，默认是'id'
+    'USER_ID_FIELD': 'userid',  # 用户模型中用作唯一标识符的字段，默认是'id'
     'USER_ID_CLAIM': 'user_id',  # JWT中用户ID对应的声明，默认是'user_id'
 
     'AUTH_TOKEN_CLASSES': ('rest_framework_simplejwt.tokens.AccessToken',),  # 授权令牌类，默认是AccessToken
@@ -160,8 +161,8 @@ IMPLE_JWT = {
 
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (
-        'pythonDjango.authentication.CustomJWTAuthentication',
         'rest_framework.authentication.SessionAuthentication',
+        'pythonDjango.authentication.CustomJWTAuthentication',
     ),
     'DEFAULT_PERMISSION_CLASSES': [
         'rest_framework.permissions.IsAuthenticated',

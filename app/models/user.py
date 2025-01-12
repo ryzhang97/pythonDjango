@@ -3,7 +3,7 @@ from django.db import models
 
 
 # 自定义用户管理器
-class CustomUserManager(BaseUserManager):
+class UserManager(BaseUserManager):
     def create_user(self, email, password=None):
         """
         创建普通用户
@@ -29,12 +29,13 @@ class CustomUserManager(BaseUserManager):
 
 # 自定义用户模型，继承AbstractBaseUser
 class User(AbstractBaseUser):
-    id = models.IntegerField(primary_key=True)
-    openid = models.CharField(max_length=30, unique=True)
-    username = models.CharField(max_length=10, unique=True)
-    password = models.CharField(max_length=15)
-    name = models.CharField(max_length=50)
-    last_login = models.DateTimeField(auto_now_add=True)
+    userid = models.IntegerField(primary_key=True, unique=True)
+    username = models.CharField(max_length=50, unique=True)
+    password = models.CharField(max_length=255)
+    email = models.CharField(max_length=100)
+    mobile = models.CharField(max_length=20)
+    employeeid = models.IntegerField()
+    last_login = models.DateTimeField(6)
     # id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     # first_name = models.CharField(max_length=30, blank=True)
     # last_name = models.CharField(max_length=30, blank=True)
@@ -43,12 +44,12 @@ class User(AbstractBaseUser):
     # is_staff = models.BooleanField(default=False)
     # date_joined = models.DateTimeField(auto_now_add=True)
 
-    # 用于唯一标识用户的字段，这里设置为邮箱
+    # 用于唯一标识用户的字段，这里设置为username
     USERNAME_FIELD = 'username'
     # 创建超级用户时除了USERNAME_FIELD外需要额外提供的字段，这里为空
     REQUIRED_FIELDS = []
 
-    objects = CustomUserManager()
+    objects = UserManager()
 
     def __str__(self):
         return self.username

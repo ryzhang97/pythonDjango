@@ -13,5 +13,6 @@ from rest_framework_simplejwt.views import (
 urlpatterns = [
     # path('', include(router.urls)),
     path('login', views.LoginView.as_view(), name='login'),
+    path('user/bind', views.UserBindlView.as_view()),
     path('user/detail', views.UserDetailView.as_view()),
 ]
