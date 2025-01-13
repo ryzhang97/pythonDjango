@@ -7,13 +7,6 @@ from rest_framework_simplejwt.tokens import RefreshToken
 
 
 class LoginView(APIView):
-    """
-    获取认证token
-    """
-    # 设置空数组 不进行认证authentication
-    authentication_classes = []
-    permission_classes = []
-
     def post(self, request, format=None):
         user = authenticate(request)
         if user is not None:

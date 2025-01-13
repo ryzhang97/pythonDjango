@@ -18,10 +18,8 @@ class UserBackend(ModelBackend):
                         # login(request, user)
                         return user
                     else:
-                        user = User()
-                        user.userid = -1
-                        user.username = openid
-                        return user
+                        wxuser.userid = openid
+                        return wxuser
             else:
                 username = request.data.get("username", None)
                 password = request.data.get("password", None)

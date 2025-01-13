@@ -71,3 +71,4 @@ class User(AbstractBaseUser):
 
     class Meta:
         db_table = 'tb_user'  # 指定使用现有的表名
+

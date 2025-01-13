@@ -4,9 +4,7 @@ from pythonDjango.enum import DataAdd
 
 
 class WXManager(BaseUserManager):
-    """
-    微信用户管理器
-    """
+    """微信用户管理器"""
 
     def create_wx_user(self, openid, unionid=None):
         """
@@ -31,14 +29,15 @@ class WXManager(BaseUserManager):
 
 
 class WXUser(models.Model):
-    """
-    微信用户模型，继承models.Model
-    """
+    """微信用户模型，继承models.Model"""
     openid = models.CharField(primary_key=True, max_length=50, unique=True)
     unionid = models.CharField(max_length=50, unique=True)
     userid = models.IntegerField()
     created_at = models.DateTimeField(auto_now_add=True)
-
+    username = None
+    email = None
+    mobile = None
+    last_login = ""
     # 用于唯一标识用户的字段，这里设置为username
     USERNAME_FIELD = 'openid'
     # 创建超级用户时除了USERNAME_FIELD外需要额外提供的字段，这里为空
